@@ -32,17 +32,27 @@ create table orderDetails
     foreign key(Shop_id) references Shop(Shop_id)
 );
 
+create table country
+(
+    country_id int not null primary key auto_increment,
+    NameСountry varchar(30) not null,
+);
+
+
 create table shop
 (
     Shop_id int not null primary key auto_increment,
+    country_id int not null,
     NameShop varchar(30) not null,
-    NameCountry varchar(30) not null
+    foreign key(country_id) references country(country_id)
 );
 
 create table Autor
 (
     Autor_id int not null primary key auto_increment,
+    country_id int not null,
     FirstName varchar(30) not null,
     LastName varchar(30) not null,
-    NameCountry varchar(30) not null
+    foreign key(country_id) references country(country_id)
 );
+
