@@ -53,11 +53,26 @@ COMMIT;
 -- 4. Создайте триггер, который при удалении книги, копирует данные о ней в отдельную
 -- таблицу "DeletedBooks".
 
+Create table DeletedBooks
+(id int not null  auto_increment primary key,
+ BookName varchar(30)
+);
+
+
 DELIMITER |
-CREATE TRIGGER delete_Authors
-    before delete on counry
+
+CREATE TRIGGER delete_books
+    before delete on books
     FOR EACH ROW
 BEGIN
-    delete from country where ID_COUNTRY= old.ID_AUTHOR;
+    insert into DeletedBooks
+    ( BookName) select NameBook from books where id_book = old.ID_BOOK;
 END;
 |
+
+DELETE FROM books WHERE ID_BOOK = 20;
+
+select * from DeletedBooks;
+
+
+
